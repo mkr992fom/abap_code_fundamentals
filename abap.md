@@ -1,6 +1,11 @@
 ## About this Repository
 
-This repository is a compilation of the most important ABAP coding basics and should serve as a reference for the most relevant aspects. It is based on experience and sections of detailed documentation, which are can be accessed driectly via a separate file. 
+This repository is a compilation of the most important ABAP coding basics and should serve as a reference for the most relevant aspects. It is based on experience and sections of detailed documentation, which are can be accessed driectly here:
+
+- ABAP Styleguid: https://github.com/SAP/styleguides/blob/main/clean-abap/CleanABAP.md
+- ABAP Documentation: https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/index.htm?file=abenabap.htm
+- ABAP Docu Examples: https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/index.htm?file=abenabap_examples.htm
+
 
 ## Topics
 
@@ -11,6 +16,7 @@ This repository is a compilation of the most important ABAP coding basics and sh
    - [Object and Reference](#declarations_fs) 
 - [Table Operation](#table)
 - [Use of References](#reference)
+- [Local Class](#class)
 
 ## Declarations
 
@@ -115,7 +121,7 @@ APPEND INITIAL LINE TO lt_table ASSIGNING <fs_structure>.
 ### Loop At/Read Table 
 
 ```ABAP
-LOOP AT lt_table ASSIGNING <fs_structure> { WHERE variable = 'value' } 
+LOOP AT lt_table ASSIGNING <fs_structure> { WHERE variable = 'value' }.
    " do processing with <fs_structure>. Changing values in fs_structure changes them also in itab!
 ENDLOOP.
 ```
@@ -141,6 +147,40 @@ GET REFERENCE OF lv_variable INTO lv_ref_variable.
 
 " assign field symbol to use reference
 lv_ref_variable->* = <fs_variable>. 
+```
+
+## Local Class 
+
+#### Class Definition
+
+```ABAP
+CLASS lcl_class DEFINITION { INHERITING FROM if_interface }.
+
+  PUBLIC SECTION.
+    METHODS:
+      method_returning IMPORTING iv_parameter        TYPE data_element
+                       RETURNING VALUE(r_parametery) TYPE data_element.
+
+    DATA:
+      gv_instance_variable TYPE i.
+      
+  PROTECTED SECTION
+  
+  PRIVATE SECTION
+  
+ENDCLASS.
+```
+
+#### Class Implementation
+
+```ABAP
+CLASS lcl_class IMPLEMENTATION.
+   
+   METHOD method_returning.
+   
+   ENDMETHOD.
+   
+ENDCLASS.
 ```
 
 
